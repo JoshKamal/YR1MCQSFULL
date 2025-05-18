@@ -651,4 +651,4 @@ document.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('premiumEnabled') === 'true') {
     premiumEnabled = true;
   }
-}
+});
