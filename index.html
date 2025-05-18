@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical MCQ Practice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #3b82f6;
+      --accent-color: #1e40af;
+      --background-color: #f3f4f6;
+      --text-color: #1f2937;
+      --border-color: #d1d5db;
+      --success-color: #10b981;
+      --error-color: #ef4444;
+      --warning-color: #f59e0b;
+      --premium-color: #8b5cf6;
+      --premium-gradient: linear-gradient(45deg, #8b5cf6, #6366f1);
+      --free-color: #10b981;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--background-color);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    header {
+      background-color: white;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      transition: background-color 0.2s;
+    }
+    
+    nav a:hover, nav a:focus {
+      background-color: rgba(59, 130, 246, 0.1);
+    }
+    
+    nav a.active {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+    }
+
+    /* Mobile menu */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-color);
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-toggle {
+        display: block;
+      }
+      
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      
+      nav.active {
+        transform: translateX(0);
+      }
+      
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      nav a {
+        color: white;
+        font-size: 1.5rem;
+      }
+      
+      .close-menu {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: white;
+        cursor: pointer;
+      }
+    }
+    
+    /* Main content */
+    main {
+      padding: 2rem 0;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text-color);
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+    
+    .hero {
+      background-color: white;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      background: var(--premium-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+      color: #4b5563;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 0.375rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .btn-primary:hover, .btn-primary:focus {
+      background-color: var(--accent-color);
+    }
+    
+    .btn-secondary {
+      background-color: white;
+      color: var(--primary-color);
+      border: 1px solid var(--border-color);
+    }
+    
+    .btn-secondary:hover, .btn-secondary:focus {
+      background-color: #f9fafb;
+    }
+    
+    .btn-premium {
+      background: var(--premium-gradient);
+      color: white;
+    }
+    
+    .btn-premium:hover, .btn-premium:focus {
+      opacity: 0.9;
+    }
+    
+    /* Module section */
+    .modules-section {
+      margin-bottom: 3rem;
+    }
+    
+    .module-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      background-color: white;
+      border: 1px solid var(--border-color);
+      border-radius: 0.375rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      font-size: 0.875rem;
+    }
+    
+    .filter-btn:hover, .filter-btn:focus {
+      background-color: rgba(59, 130, 246, 0.05);
+    }
+    
+    .filter-btn.active {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+    
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .module-card {
+      background-color: white;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    
+    .module-card:hover, .module-card:focus {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .module-card-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      position: relative;
+    }
+
+    .module-card-header h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+    }
+    
+    .module-card-content {
+      padding: 1.5rem;
+    }
+    
+    .module-card-content p {
+      margin-bottom: 1rem;
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+    
+    .module-card-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    
+    .module-tag {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .module-tag.free {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: var(--free-color);
+    }
+    
+    .module-tag.premium {
+      background: rgba(139, 92, 246, 0.1);
+      color: var(--premium-color);
+    }
+    
+    /* Quiz View */
+    .quiz-container {
+      display: none;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .quiz-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    
+    .quiz-progress {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .progress-bar-container {
+      width: 200px;
+      height: 0.5rem;
+      background-color: var(--border-color);
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background-color: var(--primary-color);
+      width: 0%;
+      transition: width 0.3s;
+    }
+    
+    .question-container {
+      background-color: white;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1.5rem;
+    }
+    
+    .question-text {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .option-btn {
+      background-color: white;
+      border: 1px solid var(--border-color);
+      border-radius: 0.375rem;
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .option-btn:hover, .option-btn:focus {
+      background-color: rgba(59, 130, 246, 0.05);
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    
+    .option-btn.correct {
+      background-color: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: var(--success-color);
+    }
+    
+    .option-btn.incorrect {
+      background-color: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: var(--error-color);
+    }
+    
+    .feedback-container {
+      display: none;
+      padding: 1.5rem;
+      border-radius: 0.375rem;
+      margin-bottom: 1.5rem;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .feedback-container.correct {
+      background-color: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    
+    .feedback-container.incorrect {
+      background-color: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    
+    .feedback-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .feedback-title.correct {
+      color: var(--success-color);
+    }
+    
+    .feedback-title.incorrect {
+      color: var(--error-color);
+    }
+    
+    .feedback-explanation {
+      margin-bottom: 1rem;
+    }
+    
+    .quiz-controls {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    
+    .quiz-info {
+      background-color: white;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1.5rem;
+    }
+    
+    .quiz-info h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    
+    .stat-card {
+      padding: 1rem;
+      background-color: #f8fafc;
+      border-radius: 0.375rem;
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--primary-color);
+    }
+    
+    .stat-label {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    
+    /* About Section */
+    .about-section {
+      background-color: white;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+    }
+    
+    .about-section h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+    
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Footer */
+    footer {
+      background-color: white;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    
+    .footer-column {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+    
+    .footer-column ul {
+      list-style-type: none;
+    }
+    
+    .footer-column li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .footer-column a {
+      text-decoration: none;
+      color: #6b7280;
+      transition: color 0.2s;
+    }
+    
+    .footer-column a:hover, .footer-column a:focus {
+      color: var(--primary-color);
+    }
+    
+    .footer-bottom {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.875rem;
+    }
+    
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      overflow-y: auto;
+    }
+    
+    .modal.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background-color: white;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #6b7280;
+    }
+    
+    .modal-header {
+      margin-bottom: 1.5rem;
+    }
+    
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+      
+      .quiz-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      .quiz-progress {
+        width: 100%;
+      }
+      
+      .progress-bar-container {
+        width: 100%;
+      }
+    }
+    
+    /* Loader */
+    .loader {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid var(--primary-color);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Score Card */
+    .score-card {
+      background-color: white;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    
+    .score-value {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+    
+    .score-bar-container {
+      width: 100%;
+      height: 1rem;
+      background-color: var(--border-color);
+      border-radius: 1rem;
+      margin: 1rem 0;
+      overflow: hidden;
+    }
+    
+    .score-bar {
+      height: 100%;
+      transition: width 0.3s, background-color 0.3s;
+    }
+    
+    .score-bar.high {
+      background-color: var(--success-color);
+    }
+    
+    .score-bar.medium {
+      background-color: var(--warning-color);
+    }
+    
+    .score-bar.low {
+      background-color: var(--error-color);
+    }
+    
+    .score-label {
+      font-size: 1.25rem;
+      color: #6b7280;
+    }
+
+    /* Review Mode */
+    .review-controls {
+      display: none;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    /* Session Results */
+    .results-container {
+      display: none;
+      background-color: white;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .results-heading {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+
+    .results-stats {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      gap: 1rem;
+    }
+
+    .results-stat {
+      flex: 1;
+      min-width: 120px;
+      padding: 1rem;
+      background-color: #f8fafc;
+      border-radius: 0.375rem;
+    }
+
+    .results-stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .results-stat-value.correct {
+      color: var(--success-color);
+    }
+
+    .results-stat-value.incorrect {
+      color: var(--error-color);
+    }
+
+    .results-stat-value.total {
+      color: var(--primary-color);
+    }
+
+    .results-stat-label {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+
+    .results-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="#" class="logo">Medical MCQ Quiz</a>
+      <button class="mobile-menu-toggle" aria-label="Menu">☰</button>
+      <nav>
+        <button class="close-menu" aria-label="Close menu">✕</button>
+        <ul>
+          <li><a href="#" class="active" data-page="home">Home</a></li>
+          <li><a href="#" data-page="modules">Modules</a></li>
+          <li><a href="#" data-page="about">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- Home Page -->
+      <section id="home-page">
+        <div class="hero">
+          <h1>Master Medical Concepts with MCQs</h1>
+          <p>Practice with over 2,500 high-quality medical multiple-choice questions across various specialties. Track your progress, focus on your weaknesses, and improve your medical knowledge efficiently.</p>
+          <div>
+            <button class="btn btn-primary start-quiz-btn" data-module="focs" data-topic="focs2">Start Practicing Now</button>
+            <button class="btn btn-secondary" data-page="modules">Browse All Modules</button>
+          </div>
+        </div>
+
+        <div class="modules-section">
+          <h2>Popular Modules</h2>
+          <div class="module-grid">
+            <div class="module-card" data-module="focs" data-topic="focs2">
+              <div class="module-card-header">
+                <h3>FOCS 2</h3>
+                <span class="module-tag free">Free</span>
+              </div>
+              <div class="module-card-content">
+                <p>Core concepts in pharmacology and drug actions</p>
+                <div class="module-card-stats">
+                  <span>388 Questions</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="module-card" data-module="focs" data-topic="focs3">
+              <div class="module-card-header">
+                <h3>FOCS 3</h3>
+                <span class="module-tag free">Free</span>
+              </div>
+              <div class="module-card-content">
+                <p>Advanced pharmacological principles</p>
+                <div class="module-card-stats">
+                  <span>380 Questions</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="module-card" data-module="bcr" data-topic="bcr1">
+              <div class="module-card-header">
+                <h3>BCR 1</h3>
+                <span class="module-tag premium">Premium</span>
+              </div>
+              <div class="module-card-content">
+                <p>Introduction to biochemistry concepts</p>
+                <div class="module-card-stats">
+                  <span>150 Questions</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="module-card" data-module="msk" data-topic="msk1">
+              <div class="module-card-header">
+                <h3>MSK 1</h3>
+                <span class="module-tag premium">Premium</span>
+              </div>
+              <div class="module-card-content">
+                <p>Fundamentals of musculoskeletal anatomy</p>
+                <div class="module-card-stats">
+                  <span>180 Questions</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modules Page -->
+      <section id="modules-page" style="display: none;">
+        <h1>All Modules</h1>
+        
+        <div class="module-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="focs">Fundamentals</button>
+          <button class="filter-btn" data-filter="bcr">BCR</button>
+          <button class="filter-btn" data-filter="msk">MSK</button>
+          <button class="filter-btn" data-filter="anatomy">Anatomy</button>
+          <button class="filter-btn" data-filter="free">Free</button>
+          <button class="filter-btn" data-filter="premium">Premium</button>
+        </div>
+        
+        <div class="module-grid">
+          <div class="module-card" data-module="focs" data-topic="focs2" data-type="free">
+            <div class="module-card-header">
+              <h3>FOCS 2</h3>
+              <span class="module-tag free">Free</span>
+            </div>
+            <div class="module-card-content">
+              <p>Core concepts in pharmacology and drug actions</p>
+              <div class="module-card-stats">
+                <span>388 Questions</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="module-card" data-module="focs" data-topic="focs3" data-type="free">
+            <div class="module-card-header">
+              <h3>FOCS 3</h3>
+              <span class="module-tag free">Free</span>
+            </div>
+            <div class="module-card-content">
+              <p>Advanced pharmacological principles</p>
+              <div class="module-card-stats">
+                <span>380 Questions</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="module-card" data-module="focs" data-topic="focs4" data-type="free">
+            <div class="module-card-header">
+              <h3>FOCS 4</h3>
+              <span class="module-tag free">Free</span>
+            </div>
+            <div class="module-card-content">
+              <p>Clinical applications of drug therapy</p>
+              <div class="module-card-stats">
+                <span>390 Questions</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="module-card" data-module="focs" data-topic="focs5" data-type="free">
+            <div class="module-card-header">
+              <h3>FOCS 5</h3>
+              <span class="module-tag free">Free</span>
+            </div>
+            <div class="module-card-content">
+              <p>Modern approaches to pharmacotherapy</p>
+              <div class="module-card-stats">
+                <span>410 Questions</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="module-card" data-module="bcr" data-topic="bcr1" data-type="premium">
+            <div class="module-card-header">
+              <h3>BCR 1</h3>
+              <span class="module-tag premium">Premium</span>
+            </div>
+            <div class="module-card-content">
+              <p>Introduction to biochemistry concepts</p>
+              <div class="module-card-stats">
+                <span>150 Questions</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="module-card" data-module="bcr" data-topic="bcr2" data-type="premium">
+            <div class="module-card-header">
+              <h3>BCR 2</h3>
+              <span class="module-tag premium">Premium</span>
+            </div>
+            <div class="module-card-content">
+              <p>Advanced biochemical pathways</p>
+              <div class="module-card-stats">
+                <span>120 Questions</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="module-card" data-module="bcr" data-topic="bcr3" data-type="premium">
+            <div class="module-card-header">
+              <h3>BCR 3</h3>
+              <span class="module-tag premium">Premium</span>
+            </div>
+            <div class="module-card-content">
+              <p>Metabolic processes and regulation</p>
+              <div class="module-card-stats">
+                <span>130 Questions</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="module-card" data-module="bcr" data-topic="bcr4" data-type="premium">
+            <div class="module-card-header">
+              <h3>BCR 4</h3>
+              <span class="module-tag premium">Premium</span>
+            </div>
+            <div class="module-card-content">
+              <p>Clinical biochemistry applications</p>
+              <div class="module-card-stats">
+                <span>140 Questions</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="module-card" data-module="msk" data-topic="msk1" data-type="premium">
+            <div class="module-card-header">
+              <h3>MSK 1</h3>
+              <span class="module-tag premium">Premium</span>
+            </div>
+            <div class="module-card-content">
+              <p>Fundamentals of musculoskeletal anatomy</p>
+              <div class="module-card-stats">
+                <span>180 Questions</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="module-card" data-module="msk" data-topic="msk2" data-type="premium">
+            <div class="module-card-header">
+              <h3>MSK 2</h3>
+              <span class="module-tag premium">Premium</span>
+            </div>
+            <div class="module-card-content">
+              <p>Clinical musculoskeletal conditions</p>
+              <div class="module-card-stats">
+                <span>160 Questions</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="module-card" data-module="anatomy" data-topic="anatomy" data-type="premium">
+            <div class="module-card-header">
+              <h3>Anatomy</h3>
+              <span class="module-tag premium">Premium</span>
+            </div>
+            <div class="module-card-content">
+              <p>Comprehensive review of human anatomy</p>
+              <div class="module-card-stats">
+                <span>200 Questions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Page -->
+      <section id="about-page" style="display: none;">
+        <h1>About Medical MCQ Quiz</h1>
+        
+        <div class="about-section">
+          <h2>Our Mission</h2>
+          <p>We aim to provide high-quality medical MCQs to help students and professionals master complex medical concepts through practice and repetition. Our platform offers over 2,500 carefully curated questions across various medical specialties.</p>
+          
+          <div class="about-content">
+            <div>
+              <h3>For Students</h3>
+              <p>Perfect for medical students preparing for exams, our platform allows you to:</p>
+              <ul>
+                <li>Practice with exam-style questions</li>
+                <li>Focus on specific medical specialties</li>
+                <li>Track your progress and identify weak areas</li>
+                <li>Study efficiently with targeted practice sessions</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3>For Professionals</h3>
+              <p>Ideal for healthcare professionals looking to stay sharp, you can:</p>
+              <ul>
+                <li>Refresh your knowledge of fundamental concepts</li>
+                <li>Stay updated with current medical understanding</li>
+                <li>Prepare for continuing education examinations</li>
+                <li>Focus on specific areas relevant to your practice</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="about-section">
+          <h2>Our Content</h2>
+          <p>Our MCQs are organized into four main categories:</p>
+          
+          <div class="module-grid">
+            <div class="module-card">
+              <div class="module-card-header">
+                <h3>Fundamentals (FOCS)</h3>
+              </div>
+              <div class="module-card-content">
+                <p>Core concepts in pharmacology, pathology, and basic medical sciences that form the foundation of clinical practice.</p>
+              </div>
+            </div>
+            
+            <div class="module-card">
+              <div class="module-card-header">
+                <h3>Biochemistry (BCR)</h3>
+              </div>
+              <div class="module-card-content">
+                <p>Detailed coverage of biochemical processes, metabolic pathways, and molecular mechanisms relevant to medicine.</p>
+              </div>
+            </div>
+            
+            <div class="module-card">
+              <div class="module-card-header">
+                <h3>Musculoskeletal (MSK)</h3>
+              </div>
+              <div class="module-card-content">
+                <p>Comprehensive review of musculoskeletal anatomy, pathology, and clinical conditions affecting bones, joints, and muscles.</p>
+              </div>
+            </div>
+            
+            <div class="module-card">
+              <div class="module-card-header">
+                <h3>Anatomy</h3>
+              </div>
+              <div class="module-card-content">
+                <p>Detailed study of human anatomical structures and systems essential for medical practice and clinical diagnosis.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quiz Page -->
+      <section id="quiz-page" style="display: none;" class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title" id="quiz-title">FOCS 2 Practice</div>
+          <div class="quiz-progress">
+            <span id="question-counter">Question 1/10</span>
+            <div class="progress-bar-container">
+              <div class="progress-bar" id="progress-bar"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="loader" class="loader"></div>
+        
+        <div id="question-container" class="question-container" style="display: none;">
+          <div id="question-text" class="question-text"></div>
+          <div id="options-container" class="options-container"></div>
+        </div>
+        
+        <div id="feedback-container" class="feedback-container">
+          <div class="feedback-title" id="feedback-title"></div>
+          <div class="feedback-explanation" id="feedback-explanation"></div>
+          <div id="feedback-source"></div>
+        </div>
+        
+        <div class="quiz-controls">
+          <button id="prev-btn" class="btn btn-secondary">Previous</button>
+          <button id="next-btn" class="btn btn-primary">Next</button>
+        </div>
+        
+        <div id="review-controls" class="review-controls">
+          <button id="review-incorrect-btn" class="btn btn-secondary">Review Incorrect</button>
+          <button id="restart-btn" class="btn btn-primary">Start Over</button>
+        </div>
+        
+        <div id="quiz-info" class="quiz-info">
+          <h3>Your Progress</h3>
+          <div class="stats-container">
+            <div class="stat-card">
+              <div id="total-questions" class="stat-value">0</div>
+              <div class="stat-label">Total Questions</div>
+            </div>
+            <div class="stat-card">
+              <div id="answered-questions" class="stat-value">0</div>
+              <div class="stat-label">Answered</div>
+            </div>
+            <div class="stat-card">
+              <div id="correct-questions" class="stat-value">0</div>
+              <div class="stat-label">Correct</div>
+            </div>
+            <div class="stat-card">
+              <div id="accuracy" class="stat-value">0%</div>
+              <div class="stat-label">Accuracy</div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="results-container" class="results-container">
+          <h2 class="results-heading">Session Complete!</h2>
+          
+          <div class="results-stats">
+            <div class="results-stat">
+              <div id="results-total" class="results-stat-value total">0</div>
+              <div class="results-stat-label">Total Questions</div>
+            </div>
+            <div class="results-stat">
+              <div id="results-correct" class="results-stat-value correct">0</div>
+              <div class="results-stat-label">Correct</div>
+            </div>
+            <div class="results-stat">
+              <div id="results-incorrect" class="results-stat-value incorrect">0</div>
+              <div class="results-stat-label">Incorrect</div>
+            </div>
+          </div>
+          
+          <div class="score-card">
+            <div id="results-score" class="score-value">0%</div>
+            <div class="score-bar-container">
+              <div id="results-score-bar" class="score-bar" style="width: 0%;"></div>
+            </div>
+            <div id="results-message" class="score-label">Keep practicing to improve!</div>
+          </div>
+          
+          <div class="results-actions">
+            <button id="review-results-btn" class="btn btn-secondary">Review Incorrect</button>
+            <button id="new-session-btn" class="btn btn-primary">New Session</button>
+            <button id="back-to-modules-btn" class="btn btn-secondary">Back to Modules</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Medical MCQ Quiz</h3>
+        <p>Comprehensive platform for medical students and professionals to practice and master medical concepts through high-quality MCQs.</p>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Modules</h3>
+        <ul>
+          <li><a href="#" data-page="modules" data-filter="focs">Fundamentals (FOCS)</a></li>
+          <li><a href="#" data-page="modules" data-filter="bcr">Biochemistry (BCR)</a></li>
+          <li><a href="#" data-page="modules" data-filter="msk">Musculoskeletal (MSK)</a></li>
+          <li><a href="#" data-page="modules" data-filter="anatomy">Anatomy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#" data-page="home">Home</a></li>
+          <li><a href="#" data-page="modules">All Modules</a></li>
+          <li><a href="#" data-page="about">About</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 Medical MCQ Quiz. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Premium Access Modal -->
+  <div id="premium-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-modal" aria-label="Close modal">✕</button>
+      <div class="modal-header">
+        <h2 class="modal-title">Premium Content</h2>
+      </div>
+      <p>This module requires premium access. For testing purposes, all content has been made available.</p>
+      <button id="enable-premium-btn" class="btn btn-premium" style="margin-top: 1rem;">Enable Premium Access</button>
+    </div>
+  </div>
+
+  <script src="mcq/script.js"></script>
+</body>
+</html>
